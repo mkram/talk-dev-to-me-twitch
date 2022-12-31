@@ -1,6 +1,6 @@
 import React from "react";
-import {useRouteMatch} from "react-router-dom";
-import { StylesProvider, createGenerateClassName } from '@material-ui/core/styles';
+import {useLocation} from "react-router-dom";
+import { StyledEngineProvider } from '@mui/material/styles';
 import Product from "./Product";
 
 const catalogueData = [
@@ -24,25 +24,19 @@ const catalogueData = [
     }
 ]
 
-const generateClassName = createGenerateClassName({
-    seed:'catalogue'
-});
-
 const Home = () => {
-    let { path } = useRouteMatch();
+    let { pathname } = useLocation();
 
     return(
-        <StylesProvider generateClassName={generateClassName}>
-            <div>
-                    {          
-                        catalogueData.map(item => {
-                            return (
-                                <Product key={item.id} data={item} url={`${path}/product/${item.id}`}/>
-                            )
-                        })
-                    }
-            </div>
-        </StylesProvider>
+        <div>
+            {          
+                catalogueData.map(item => {
+                    return (
+                        <Product key={item.id} data={item} url={`${pathname}/product/${item.id}`}/>
+                    )
+                })
+            }
+        </div>
     )
 }
 

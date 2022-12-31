@@ -23,4 +23,3 @@ const AccountDetails = (props) => {
 }
 
 export default AccountDetails;
-                

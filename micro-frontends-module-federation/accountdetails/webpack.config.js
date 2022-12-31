@@ -33,19 +33,26 @@ module.exports = {
           "./AccountDetails": "./src/AccountDetails"
         },
         shared: {
-          "@material-ui/core": {
-            singleton: true,
-          },
-          "@material-ui/styles": {
-            singleton: true
-          },
-          "react-dom": {
-            singleton: true,
-          },
           react: {
             singleton: true,
           },
-        },
-      })
+          "react-dom": {
+            singleton: true,
+            requiredVersion: '18.2.0'            
+          },
+          "@mui/material": {
+            singleton: true,
+            requiredVersion: '5.11.2'
+          },
+          "@emotion/react": {
+              singleton: true,
+              requiredVersion: '11.10.5'
+          },
+          "@emotion/styled": {
+              singleton: true,
+              requiredVersion: '11.10.5'
+          }
+        }
+      }),
     ],
   };

@@ -3,7 +3,7 @@ import {Link, useParams} from "react-router-dom";
 
 const Details = () => {
 
-    const {productId} = useParams()
+    const { productId }  = useParams()
 
     return(
         <div>

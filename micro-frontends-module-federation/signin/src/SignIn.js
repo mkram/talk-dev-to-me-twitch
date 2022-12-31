@@ -1,26 +1,22 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { StylesProvider, createGenerateClassName } from '@material-ui/core/styles';
+import { useNavigate } from "react-router-dom";
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { StyledEngineProvider } from '@mui/material/styles';
 
 const faketoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
 
-const generateClassName = createGenerateClassName({
-    seed:'signin'
-});
-
 const SignIn = () => {
-    let history = useHistory();
+    let navigate = useNavigate();
 
     const onSignIn = () => {
         window.sessionStorage.setItem("token", faketoken);
-        history.push("/shop");
+        navigate("shop");
     }
 
     return (
-        <StylesProvider generateClassName={generateClassName}>
+        <StyledEngineProvider injectFirst>
             <form>
                 <div>
                 <Typography component="p">
@@ -39,7 +35,7 @@ const SignIn = () => {
                 <br/>
                 <Button variant="contained" onClick={onSignIn}>Sign in</Button>
             </form>
-        </StylesProvider>
+        </StyledEngineProvider>
     );
 }
 

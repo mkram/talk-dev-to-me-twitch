@@ -1,11 +1,11 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import { makeStyles } from '@material-ui/core/styles';
+import { useNavigate } from "react-router-dom";
+import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
+import InfoIcon from '@mui/icons-material/Info';
+import { makeStyles } from 'tss-react/mui';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
     paper: {
       margin: 10,
       float: "left",
@@ -17,11 +17,11 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const Product = (props) => {
-    const classes = useStyles();
-    let history = useHistory();
-
+    const { classes } = useStyles();
+    let navigate = useNavigate();
+ 
     const productDetails = () => {
-        history.push(props.url);
+        navigate(props.url);
     }
 
     return(
@@ -32,8 +32,8 @@ const Product = (props) => {
                         {props.data.productName}
                     </h2>
                     <span>{props.data.cost}</span>
-                    <IconButton>
-                        <InfoIcon onClick={productDetails}/>
+                    <IconButton onClick={productDetails}>
+                        <InfoIcon/>
                     </IconButton>
                 </div>
             </Paper>

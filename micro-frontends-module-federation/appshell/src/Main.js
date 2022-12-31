@@ -1,26 +1,27 @@
-import React, {useState} from "react";
-import {Route, Switch, Link} from "react-router-dom";
+import React, {useState, Suspense} from "react";
+import { Route, Routes, Link} from "react-router-dom";
 import clsx from 'clsx';
-import { makeStyles, useTheme, StylesProvider, createGenerateClassName } from '@material-ui/core/styles';
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import ViewListIcon from '@material-ui/icons/ViewList';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { useTheme, StyledEngineProvider } from '@mui/material/styles';
+import { makeStyles } from 'tss-react/mui';
+import CssBaseline from "@mui/material/CssBaseline";
+import Drawer from '@mui/material/Drawer';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ViewListIcon from '@mui/icons-material/ViewList';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 const Catalogue = React.lazy(() => import("Catalogue/Catalogue"));
 const SignIn = React.lazy(() => import("SignIn/SignIn"));
@@ -28,20 +29,16 @@ const MyAccount = React.lazy(() => import("MyAccount/MyAccount"));
 
 const drawerWidth = 240;
 
-const generateClassName = createGenerateClassName({
-  seed:'appshell'
-});
-
 
 const renderMFE = (MFE) => {
     return(
-        <React.Suspense fallback="Loading...">
+        <Suspense fallback="Loading...">
             <MFE />
-        </React.Suspense>
+        </Suspense>
     )
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
     root: {
         display: 'flex',
       },
@@ -105,7 +102,7 @@ const Main = () => {
         setToken(window.sessionStorage.getItem("token"))
     }
 
-    const classes = useStyles();
+    const { classes } = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -118,7 +115,7 @@ const Main = () => {
     };
 
     return(
-      <StylesProvider generateClassName={generateClassName}>
+      <StyledEngineProvider injectFirst>
           <div className={classes.root}>
               <CssBaseline />
               <AppBar
@@ -182,15 +179,15 @@ const Main = () => {
                       [classes.contentShift]: open,
                   })}>
                   <div className={classes.drawerHeader} />
-                  <Switch>
-                      <Route exact path="/myaccount" render={_ => renderMFE(MyAccount)}/>
-                      <Route path="/shop" render={_ => renderMFE(Catalogue)}/>
-                      <Route path="/" render={_ => renderMFE(SignIn)}/>
-                  </Switch>                  
+                    <Routes>
+                        <Route index element={ renderMFE(SignIn) }/>
+                        <Route path="/shop/*" element={ renderMFE(Catalogue) } />
+                        <Route path="/myaccount" element={ renderMFE(MyAccount) }/>
+                    </Routes>
               </main>
-              
+
           </div>
-        </StylesProvider>)
+        </StyledEngineProvider>)
 }
 
 export default Main;

@@ -39,20 +39,28 @@ module.exports = {
           "./Catalogue": "./src/Catalogue"
         },
         shared: {
-          "@material-ui/core": {
+          "@mui/material": {
             singleton: true,
+            requiredVersion: '5.11.2'
           },
-          "@material-ui/styles": {
-            singleton: true
+          "@emotion/react": {
+              singleton: true,
+              requiredVersion: '11.10.5'
+          },
+          "@emotion/styled": {
+              singleton: true,
+              requiredVersion: '11.10.5'
           },
           "react-router-dom": {
             singleton: true,
           },
           "react-dom": {
             singleton: true,
+            requiredVersion: '18.2.0'
           },
           react: {
             singleton: true,
+            requiredVersion: '18.2.0'
           },
         },
       })
